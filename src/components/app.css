@@ -1,0 +1,24 @@
+* { user-select: none; }
+
+.main-app {
+  background: darkgray;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-app .container {
+  text-align: center;
+}
+
+.main-app h1 {
+  font-size: 20em;
+  margin: 0;
+  color: dimgray;
+  cursor: pointer;
+}
+.main-app .world {
+  font-size: 5em;
+  color: dimgray;
+}

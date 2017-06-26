@@ -1,31 +1,28 @@
-# Simple React Starter
 
+Simple React-starter
+--------------------
+----------
 Just run
 
     npm start -s
+   or (for production)
+
+    npm run build -s
 
   * Cache bursting
   * Css extraction
-  * Production
+  * Production (css & js minification with babili)
   * Hot reload
   * React,
   * Redux,
   * React-Router
-  * Babel stage-2, jsx, babel-runtime
+  * Babel
   * Eslint
-  * Webpack 2
-  * Moment js,
-  * appLibs & appMain
+  * Webpack 3,
   * Editorconfig
+  * npm 5 witch package-lock.json
 
-If you use vscode I recommend the following plugins:
+TODO
 
-  * EditorConfig for Vs Code
-  * ESLint
-  * Color Picker
-  * jsx
-  * Node modules resolve
-  * npm
-  * npm Intellisense
-  * Path Intellisense
-  * ~~Auto Rename Tag~~ this is buggy and causes my vs code to hang
+ 1. implement why-did-you-update in dev mode
+ 2. fix vscode intellisense.

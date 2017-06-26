@@ -1,72 +1,48 @@
-import './app.scss';
+import './app.css';
 
 import React from 'react';
-import Helmet from 'react-helmet';
-
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {Helmet} from 'react-helmet/es/Helmet';
+import {Route, Switch} from 'react-router-dom';
 
-import {displayMessage} from '../actions';
+import {displayRandomMessage} from 'actions';
+import favicon from 'img/favicon.png';
 
+const mapStateToProps = state => ({message: state.message });
+const mapDispatchToProps = dispatch => bindActionCreators({displayRandomMessage}, dispatch);
 
-export class _App extends React.Component {
+@connect(mapStateToProps, mapDispatchToProps)
+export class App extends React.PureComponent {
 
-  static defaultProps = { message: '' }
   static propTypes = {
-    message: React.PropTypes.string.isRequired,
-    displayMessage: React.PropTypes.func.isRequired
+    message: PropTypes.string.isRequired,
+    displayRandomMessage: PropTypes.func.isRequired
   }
 
-  sayHello = () => this.props.displayMessage(words[Math.floor(Math.random() * words.length)]);
-
-  render = () => {
+  render() {
+    const { displayRandomMessage, message } = this.props;
     return (
-      <div className="main-app">
-        <Helmet
-          title="React Starter!"
-          htmlAttributes={{lang: "en"}}
-          meta={[
-            {charset: "utf-8" },
-            {name: "description", content: "Awesome react starter"},
-            {"http-equiv": "x-ua-compatible", content: "ie=edge"},
-            {name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"},
-          ]}
-          link={[{rel: "icon", href: require('../../assets/img/favicon.png'), type: 'image/png', sizes: '32x32' }]} />
-
-        <h1 onClick={this.sayHello}>Hello</h1>
-        <p className="world">{this.props.message}</p>
+      <div className='main-app'>
+        <Helmet >
+          <title>React Starter!</title>
+          <html lang='en' />
+          <meta charset='utf-8' />
+          <meta name='description' content='Awesome react starter' />
+          <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+          <link rel='icon' href={favicon} type='image/png' sizes='32x32' />
+        </Helmet>
+        <Switch>
+          <Route exact path='/' render={() => (
+            <div className='container'>
+              <h1 onClick={displayRandomMessage}>Hello</h1>
+              <p className='world'>{message}</p>
+            </div>)}
+          />
+          <Route render={() => <h1>404</h1>} />
+        </Switch>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => ({message: state.message });
-const mapDispatchToProps = dispatch => bindActionCreators({displayMessage},dispatch);
-export const App = connect(mapStateToProps,mapDispatchToProps)(_App);
-
-
-const words = [
-  "Hommie",
-  "Dude",
-  "Super Dev",
-  "Dev",
-  "Reduxer",
-  "YOLO",
-  "BYE",
-  "Crazy",
-  "Superman",
-  "Github",
-  "React",
-  "Redux",
-  "Facebook",
-  "Duck",
-  "SHIELD",
-  "Captain",
-  "World",
-  "Mars",
-  "Webpack",
-  "You",
-  "Hello",
-  "Japanese people",
-  "Gaeron!",
-];

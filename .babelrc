@@ -1,9 +1,19 @@
 {
-  "presets": [ ["latest", { "es2015": { "modules": false, "loose": true }}], "react", "stage-2" ],
-  "plugins": ["transform-runtime"],
-  "env": {
-    "development": {
-      "plugins": ["react-hot-loader/babel"]
-    }
-  }
+  "presets": [
+    ["env", {
+      "debug": true,
+      "loose": true,
+      "modules": false,
+      "useBuiltIns": true,
+      "targets": { "chrome": 59 }
+    }],
+    "react"
+  ],
+    "plugins": [
+      "react-hot-loader/babel",
+      "transform-react-constant-elements",
+      "transform-decorators-legacy",
+      ["transform-object-rest-spread", { "useBuiltIns": true }],
+      ["transform-class-properties", { "spec": true }]
+    ]
 }
