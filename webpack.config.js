@@ -10,7 +10,9 @@ const identity = i => i;
 module.exports = env => {
   console.log('Env is ' + env);
 
-  const ifDev = then => (env === 'dev' ? then : null);
+  const isDev = env === 'dev';
+
+  const ifDev = then => (isDev ? then : null);
   const ifProd = then => (env === 'prod' ? then : null);
 
   return {
@@ -19,17 +21,17 @@ module.exports = env => {
     entry: [ifDev('react-hot-loader/patch'),'./appLoader'].filter(identity),
     performance: { hints: false },
     context: path.resolve(__dirname, './src'),
-    devtool: env === 'dev' ? 'cheap-module-source-map' : false,
+    devtool: isDev ? 'cheap-module-source-map' : false,
     resolve: { modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'] },
-    output: { path: path.resolve(__dirname, './dist'), filename: env === 'dev' ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
+    output: { path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
     plugins: [
       ifProd(new CleanWebpackPlugin(['dist/*.*'], { verbose: true, })),
       ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false})),
-      new webpack.EnvironmentPlugin({ DEBUG: env === 'dev', NODE_ENV: env === 'dev' ? 'development' : 'production' }),
+      new webpack.EnvironmentPlugin({ DEBUG: isDev, NODE_ENV: isDev ? 'development' : 'production' }),
       new HtmlWebpackPlugin({ template: 'index.html', inject: true, minify: { collapseWhitespace: true } }),
       ifDev(new webpack.HotModuleReplacementPlugin()),
       ifDev(new webpack.NamedModulesPlugin()),
-      ifProd(new ExtractTextPlugin('app.bundle.[contenthash].css')),
+      new ExtractTextPlugin({ filename: 'app.bundle.[contenthash].css', disable: isDev }),
       ifProd(new BabiliPlugin({}, { comments: false }))
     ].filter(identity),
     devServer: {
@@ -48,10 +50,14 @@ module.exports = env => {
         include: [path.resolve(__dirname,'./src') ],
         use: 'babel-loader'
       },{
-        test: /\.css$/,
-        use: env === 'dev'
-          ? ['style-loader', { loader: 'css-loader', options: { sourceMap: true }}]
-          : ExtractTextPlugin.extract({ use: { loader: 'css-loader', options: { minimize: {discardComments: { removeAll: true}} } } })
+        test: /\.(css|less)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader',  options: { sourceMap: isDev,  minimize: isDev ? false : {discardComments: { removeAll: true}} }},
+            { loader: 'less-loader', options: { noIeCompat: true, sourceMap: isDev, paths: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')] } }
+          ]
+        })
       },{
         test: /\.(png|svg|jpg|gif)$/,
         use: [{ loader: 'url-loader', options: { limit: 4096 } }]

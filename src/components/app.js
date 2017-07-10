@@ -1,4 +1,4 @@
-import './app.css';
+import './app.less';
 
 import React from 'react';
 import PropTypes from 'prop-types';

@@ -10,7 +10,6 @@
     "react"
   ],
     "plugins": [
-      "react-hot-loader/babel",
       "transform-react-constant-elements",
       "transform-decorators-legacy",
       ["transform-object-rest-spread", { "useBuiltIns": true }],
