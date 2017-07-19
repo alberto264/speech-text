@@ -23,7 +23,7 @@ module.exports = env => {
     context: path.resolve(__dirname, './src'),
     devtool: isDev ? 'cheap-module-source-map' : false,
     resolve: { modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'] },
-    output: { path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
+    output: { publicPath: '/', path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
     plugins: [
       ifProd(new CleanWebpackPlugin(['dist/*.*'], { verbose: true, })),
       ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false})),
