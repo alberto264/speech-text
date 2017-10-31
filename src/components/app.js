@@ -2,16 +2,16 @@ import './app.less';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Helmet} from 'react-helmet/es/Helmet';
-import {Route, Switch} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Helmet } from 'react-helmet/es/Helmet';
+import { Route, Switch } from 'react-router-dom';
 
-import {displayRandomMessage} from 'actions';
+import { displayRandomMessage } from 'actions';
 import favicon from 'img/favicon.png';
 
-const mapStateToProps = state => ({message: state.message });
-const mapDispatchToProps = dispatch => bindActionCreators({displayRandomMessage}, dispatch);
+const mapStateToProps = (state) => ({ message: state.message });
+const mapDispatchToProps = (dispatch) => bindActionCreators({ displayRandomMessage }, dispatch);
 
 @connect(mapStateToProps, mapDispatchToProps)
 export class App extends React.PureComponent {

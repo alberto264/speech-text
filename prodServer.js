@@ -9,4 +9,4 @@ const app = express();
 app.use(compression());
 app.use(express.static(path.resolve(__dirname, './dist')));
 app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname, './dist/index.html')); });
-app.listen(80, err => { if (err) console.error(err); });
+app.listen(80, (err) => { if (err) console.error(err); });

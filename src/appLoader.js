@@ -3,19 +3,19 @@ import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
-import {BrowserRouter, Route} from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import {App} from './components/app';
-import {rootReducer} from './reducers';
+import { App } from './components/app';
+import { rootReducer } from './reducers';
 import HotLoader from './appHotLoader';
 
 
 const composeEnhancers = process.env.NODE_ENV === 'production' ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose);
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
-const render = Component => {
+const render = (Component) => {
   ReactDOM.render(
     <HotLoader>
       <Provider store={store}>

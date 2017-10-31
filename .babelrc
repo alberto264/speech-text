@@ -5,7 +5,7 @@
       "loose": true,
       "modules": false,
       "useBuiltIns": true,
-      "targets": { "chrome": 61 }
+      "targets": { "chrome": 62 }
     }],
     "react"
   ],
