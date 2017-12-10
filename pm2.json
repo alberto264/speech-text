@@ -1,0 +1,8 @@
+{
+  "apps": [{
+      "name": "react-starter",
+      "script": "./server.js",
+      "node_args": ["--max_old_space_size=500"],
+      "env": { "NODE_ENV": "production" }
+    }]
+}

@@ -4,7 +4,11 @@ Simple React-starter
 ----------
 Just run
 
-    npm start -s
+
+      1.- npm install
+      2.- create an env.json file from env.development.json
+      3.- npm start -s
+
    or (for production)
 
     npm run build -s
@@ -21,8 +25,3 @@ Just run
   * Webpack 3,
   * Editorconfig
   * npm 5 witch package-lock.json
-
-TODO
-
- 1. implement why-did-you-update in dev mode
- 2. fix vscode intellisense.

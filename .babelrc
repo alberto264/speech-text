@@ -5,12 +5,11 @@
       "loose": true,
       "modules": false,
       "useBuiltIns": true,
-      "targets": { "chrome": 62 }
+      "targets": { "browsers": ["last 1 versions", "not ie <=11", "not android <= 56" , "ios >= 10" ] }
     }],
     "react"
   ],
     "plugins": [
-      "transform-react-constant-elements",
       "transform-decorators-legacy",
       ["transform-object-rest-spread", { "useBuiltIns": true }],
       ["transform-class-properties", { "spec": true }]
