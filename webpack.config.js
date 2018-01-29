@@ -44,14 +44,14 @@ module.exports = {
           babelrc: false,
           'presets': [
             ['@babel/preset-env',
-              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 63 } : { browsers: ['> 1%', 'not ie <=11'] } }], '@babel/preset-react'
+              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 63 } : { browsers: ['> 1%', 'not ie <=11'] } }],
+            '@babel/preset-react'
           ],
           'plugins': [
             '@babel/plugin-proposal-decorators',
             '@babel/plugin-transform-spread',
             '@babel/plugin-proposal-object-rest-spread',
-            ['@babel/plugin-proposal-class-properties', { loose: true } ],
-            ['import', { libraryName: 'antd', libraryDirectory: 'es' }]
+            ['@babel/plugin-proposal-class-properties', { loose: true } ]
           ]
         }
       }]
