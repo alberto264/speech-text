@@ -55,7 +55,6 @@
     "no-path-concat": "error",
     "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     "camelcase": "error",
-    "new-cap": "error",
     "no-lonely-if": "error",
     "no-tabs": "error",
     "no-trailing-spaces": "warn",

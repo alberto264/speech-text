@@ -17,7 +17,7 @@ console.log(`Starting compiler with NODE_ENV is ${process.env.NODE_ENV}, isDev i
 module.exports = {
   target: 'web',
   profile: true,
-  entry: [ifDev('webpack-hot-middleware/client'), ifDev('react-hot-loader/patch'), './appLoader'].filter(identity),
+  entry: [ifProd('@babel/polyfill'), ifDev('webpack-hot-middleware/client'), ifDev('react-hot-loader/patch'), './appLoader'].filter(identity),
   performance: { hints: false },
   context: path.resolve(__dirname, './src'),
   devtool: isDev ? 'cheap-module-source-map' : false,
@@ -31,13 +31,30 @@ module.exports = {
     ifDev(new webpack.HotModuleReplacementPlugin()),
     ifDev(new webpack.NamedModulesPlugin()),
     new ExtractTextPlugin({ filename: 'app.bundle.[contenthash].css', disable: isDev }),
-    ifProd(new UglifyJsPlugin({ parallel: true, cache: true, uglifyOptions: { warnings: true } }))
+    ifProd(new UglifyJsPlugin({ parallel: true, cache: true }))
   ].filter(identity),
   module: {
     rules: [{
       test: /\.js$/,
       include: [path.resolve(__dirname, './src') ],
-      use: 'babel-loader'
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          babelrc: false,
+          'presets': [
+            ['@babel/preset-env',
+              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 63 } : { browsers: ['> 1%', 'not ie <=11'] } }], '@babel/preset-react'
+          ],
+          'plugins': [
+            '@babel/plugin-proposal-decorators',
+            '@babel/plugin-transform-spread',
+            '@babel/plugin-proposal-object-rest-spread',
+            ['@babel/plugin-proposal-class-properties', { loose: true } ],
+            ['import', { libraryName: 'antd', libraryDirectory: 'es' }]
+          ]
+        }
+      }]
     }, {
       test: /\.(css|less)$/,
       use: ExtractTextPlugin.extract({
