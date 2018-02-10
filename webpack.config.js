@@ -12,8 +12,6 @@ const ifDev = (then) => (isDev ? then : null);
 const ifProd = (then) => (!isDev ? then : null);
 const identity = (i) => i;
 
-console.log(`Starting compiler with NODE_ENV is ${process.env.NODE_ENV}, isDev is ${isDev}`);
-
 module.exports = {
   target: 'web',
   profile: true,
@@ -24,7 +22,7 @@ module.exports = {
   resolve: { modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'] },
   output: { publicPath: '/', path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
   plugins: [
-    ifProd(new CleanWebpackPlugin(['dist/*.*', 'logs/*.*'], { verbose: true, })),
+    ifProd(new CleanWebpackPlugin(['dist/*.*', 'logs/*.*'], { verbose: true, beforeEmit: true })),
     ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false })),
     new webpack.EnvironmentPlugin({ DEBUG: isDev, NODE_ENV: isDev ? 'development' : 'production' }),
     new HtmlWebpackPlugin({ template: 'index.html', inject: true, minify: { collapseWhitespace: true } }),
@@ -44,7 +42,7 @@ module.exports = {
           babelrc: false,
           'presets': [
             ['@babel/preset-env',
-              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 63 } : { browsers: ['> 1%', 'not ie <=11'] } }],
+              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 64 } : { browsers: ['> 1%'] } }],
             '@babel/preset-react'
           ],
           'plugins': [

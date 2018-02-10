@@ -1,4 +1,4 @@
-import 'normalize.css';
+import './theme.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

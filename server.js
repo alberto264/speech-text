@@ -26,7 +26,7 @@ if (isDev) {
   app.get('*', (req, res, next) => { req.url = '/index.html'; return next(); }, middleware);
 
 } else {
-  app.use(express.static(path.resolve(__dirname, './dist')));
+  app.use(express.static(path.resolve(__dirname, './dist'), { maxAge: 31536000 }));
   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, './dist/index.html')));
 }
 
