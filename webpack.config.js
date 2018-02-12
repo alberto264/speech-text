@@ -19,8 +19,8 @@ module.exports = {
   performance: { hints: false },
   context: path.resolve(__dirname, './src'),
   devtool: isDev ? 'cheap-module-source-map' : false,
+  output: { publicPath: '/', path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[hash].js', },
   resolve: { modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'] },
-  output: { publicPath: '/', path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[chunkhash].js', },
   plugins: [
     ifProd(new CleanWebpackPlugin(['dist/*.*', 'logs/*.*'], { verbose: true, beforeEmit: true })),
     ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false })),
@@ -59,15 +59,15 @@ module.exports = {
         fallback: 'style-loader',
         use: [
           { loader: 'css-loader', options: { sourceMap: isDev, minimize: isDev ? false : { discardComments: { removeAll: true } } } },
-          { loader: 'less-loader', options: { noIeCompat: true, sourceMap: isDev, paths: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')] } }
+          { loader: 'less-loader', options: { noIeCompat: true, sourceMap: isDev } }
         ]
       })
     }, {
-      test: /\.(png|svg|jpg|gif)$/,
-      use: [{ loader: 'url-loader', options: { limit: 4096 } }]
+      test: /\.jpe?g$|\.gif$|\.png$|\.ttf$|\.eot$|\.svg$/,
+      use: [{ loader: 'url-loader', options: { limit: 4096, name: '[name].[hash].[ext]' } }]
     }, {
-      test: /\.(woff|woff2|eot|ttf|otf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      use: ['file-loader']
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]
     }]
   }
 };
