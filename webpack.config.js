@@ -20,7 +20,12 @@ module.exports = {
   context: path.resolve(__dirname, './src'),
   devtool: isDev ? 'cheap-module-source-map' : false,
   output: { publicPath: '/', path: path.resolve(__dirname, './dist'), filename: isDev ? 'app.bundle.js' : 'app.bundle.[hash].js', },
-  resolve: { modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'] },
+  resolve: {
+    modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './assets'), 'node_modules'],
+    alias: {
+      '@': path.resolve(__dirname, './src') // include your file like this in less files: ~@/yourFile.less
+    }
+  },
   plugins: [
     ifProd(new CleanWebpackPlugin(['dist/*.*', 'logs/*.*'], { verbose: true, beforeEmit: true })),
     ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false })),
