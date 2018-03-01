@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -15,7 +14,8 @@ const identity = (i) => i;
 module.exports = {
   target: 'web',
   profile: true,
-  entry: [ifProd('@babel/polyfill'), ifDev('webpack-hot-middleware/client'), ifDev('react-hot-loader/patch'), './appLoader'].filter(identity),
+  mode: isDev ? 'development' : 'production',
+  entry: [ifProd('@babel/polyfill'), ifDev('webpack-hot-middleware/client'), './appLoader'].filter(identity),
   performance: { hints: false },
   context: path.resolve(__dirname, './src'),
   devtool: isDev ? 'cheap-module-source-map' : false,
@@ -32,32 +32,13 @@ module.exports = {
     new webpack.EnvironmentPlugin({ DEBUG: isDev, NODE_ENV: isDev ? 'development' : 'production' }),
     new HtmlWebpackPlugin({ template: 'index.html', inject: true, minify: { collapseWhitespace: true } }),
     ifDev(new webpack.HotModuleReplacementPlugin()),
-    ifDev(new webpack.NamedModulesPlugin()),
     new ExtractTextPlugin({ filename: 'app.bundle.[contenthash].css', disable: isDev }),
-    ifProd(new UglifyJsPlugin({ parallel: true, cache: true }))
   ].filter(identity),
   module: {
     rules: [{
       test: /\.js$/,
-      include: [path.resolve(__dirname, './src') ],
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          babelrc: false,
-          'presets': [
-            ['@babel/preset-env',
-              { useESModules: true, debug: true, loose: true, useBuiltIns: false, modules: false, targets: isDev ? { chrome: 64 } : { browsers: ['> 1%'] } }],
-            '@babel/preset-react'
-          ],
-          'plugins': [
-            '@babel/plugin-proposal-decorators',
-            '@babel/plugin-transform-spread',
-            '@babel/plugin-proposal-object-rest-spread',
-            ['@babel/plugin-proposal-class-properties', { loose: true } ]
-          ]
-        }
-      }]
+      include: [path.resolve(__dirname, './src')],
+      use: [{ loader: 'babel-loader' }]
     }, {
       test: /\.(css|less)$/,
       use: ExtractTextPlugin.extract({

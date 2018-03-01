@@ -6,12 +6,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet/es/Helmet';
 import { Route, Switch } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
+
 
 import { displayRandomMessage } from 'actions';
 
 const mapStateToProps = (state) => ({ message: state.message });
 const mapDispatchToProps = (dispatch) => bindActionCreators({ displayRandomMessage }, dispatch);
 
+@hot(module)
 @connect(mapStateToProps, mapDispatchToProps)
 export class App extends React.PureComponent {
 
