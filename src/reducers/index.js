@@ -1,10 +1,8 @@
-//import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
-export const rootReducer = (state = { message: '' }, action) => {
+import { modals } from 'controls/modals/reducer';
 
-  switch (action.type) {
-    case 'SEND_MESSAGE': return { message: action.message };
-    default: return state;
-  }
 
-};
+export const rootReducer = combineReducers({
+  modals,
+});

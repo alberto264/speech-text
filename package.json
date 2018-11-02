@@ -1,11 +1,10 @@
 {
-  "name": "react-starter",
-  "version": "2.0.0",
-  "description": "Starter Kit for web development using React, React Router, Redux & Bundling with Webpack & React Semantic UI",
+  "name": "speech-text",
+  "version": "1.0.0",
+  "description": "display speech on screen ",
   "scripts": {
     "postinstall": "patch-package",
     "start": "cross-env NODE_ENV=development node ./server.js",
-    "start:debug": "cross-env NODE_ENV=development node --inspect ./server.js",
     "start:prod": "cross-env NODE_ENV=production node ./server.js",
     "start:lint": "eslint ./src --color",
     "build": "cross-env NODE_ENV=production webpack",
@@ -15,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/elios264/react-starter"
+    "url": "github.com/elios264/speech-text"
   },
   "author": "elios264",
   "license": "ISC",
@@ -56,9 +55,11 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "compression": "^1.7.3",
     "env2": "^2.2.2",
     "express": "^4.16.3",
+    "joi": "^14.0.3",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
@@ -68,6 +69,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "semantic-ui-react": "^0.83.0",
     "tachyons-custom": "^4.9.5"
   }
