@@ -2,7 +2,7 @@
   "apps": [{
       "name": "react-starter",
       "script": "./server.js",
-      "node_args": ["--max_old_space_size=500"],
+      "node_args": ["--max_old_space_size=1024"],
       "env": { "NODE_ENV": "production" }
     }]
 }

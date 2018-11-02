@@ -3,21 +3,19 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-proposal-decorators",
-    "@babel/plugin-transform-spread",
-    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": true } ],
     "react-hot-loader/babel"
   ],
   "env": {
     "production": {
       "presets": [
-        ["@babel/preset-env", { "useESModules": true, "debug": true, "loose": true, "useBuiltIns": false, "modules": false, "targets": { "browsers": ["> 1%"] } }]
+        ["@babel/preset-env", { "debug": true, "loose": true, "useBuiltIns": "usage", "modules": false, "targets": { "browsers": "> 1%" } }]
       ]
     },
     "development": {
       "presets": [
-        ["@babel/preset-env", { "useESModules": true, "debug": true, "loose": true, "useBuiltIns": false, "modules": false, "targets": { "chrome": 64 } }]
+        ["@babel/preset-env", { "debug": false, "loose": true, "useBuiltIns": "usage", "modules": false, "targets": { "browsers": "chrome 68" } }]
       ]
     }
   }

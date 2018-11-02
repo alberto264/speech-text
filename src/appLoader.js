@@ -1,4 +1,4 @@
-import './theme.less';
+import 'theme/theme.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

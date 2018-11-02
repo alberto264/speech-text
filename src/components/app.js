@@ -1,6 +1,6 @@
 import './app.less';
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({ displayRandomMessa
 
 @hot(module)
 @connect(mapStateToProps, mapDispatchToProps)
-export class App extends React.PureComponent {
+export class App extends PureComponent {
 
   static propTypes = {
     message: PropTypes.string.isRequired,
