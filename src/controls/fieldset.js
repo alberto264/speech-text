@@ -14,11 +14,13 @@ export class Fieldset extends PureComponent {
     onSubmit: PropTypes.func,
     cloneSource: PropTypes.func.isRequired,
     enabled: PropTypes.bool,
+    useFormTag: PropTypes.bool,
   }
 
   static defaultProps = {
     source: {},
     enabled: true,
+    useFormTag: true,
     cloneSource: _.cloneDeep
   }
 
@@ -105,15 +107,16 @@ export class Fieldset extends PureComponent {
 
   render() {
     const { loading } = this.state;
-    const { children, enabled } = this.props;
+    const { children, enabled, useFormTag } = this.props;
 
     const extraProps = _.pickBy(_.omit(this.props, _.keys(Fieldset.propTypes)), _.identity);
     const props = this.calculateProps(this.state, this.props);
+    const Component = (!useFormTag || parent) ? 'div' : Form;
 
     return (
-      <Form onSubmit={enabled ? this.submitForm : undefined} {...extraProps} >
+      <Component onSubmit={(!useFormTag || !enabled) ? undefined : this.submitForm} {...extraProps} >
         {children(props, { submitForm: enabled ? this.submitForm : _.noop, resetSource: this.resetSource, loading })}
-      </Form>
+      </Component>
     );
   }
 

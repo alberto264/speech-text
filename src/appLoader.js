@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Api } from './api';
 import { App } from './components/app';
 import { rootReducer } from './reducers';
-import { initialize } from './actions/initializers';
+import { initialize } from './actions';
 
 
 const api = new Api();

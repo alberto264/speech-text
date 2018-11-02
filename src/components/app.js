@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet/es/Helmet';
 import { hot } from 'react-hot-loader';
 
 import { NotFound, ErrorBoundary } from './common';
+import { Home } from './home';
 import { ModalController } from 'controls/modals';
 
 const mapStateToProps = (state) => ({
@@ -36,6 +37,7 @@ export class App extends PureComponent {
         </Helmet>
         <ErrorBoundary>
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route component={NotFound} />
           </Switch>
           <ModalController modals={modals} />

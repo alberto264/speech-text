@@ -38,6 +38,12 @@ module.exports = {
       '../../theme.config$': path.join(__dirname, './src/theme/semantic/theme.config.less'), //semantic requirement
     }
   },
+  node: {
+    //allow Joi package to be bundled on browser since it is originally made for node.js
+    crypto: 'empty',
+    net: 'empty',
+    dns: 'empty',
+  },
   plugins: [
     ifProd(new CleanWebpackPlugin(['dist/*.*', 'logs/*.*'], { verbose: true, beforeEmit: true })),
     ifProd(new webpack.LoaderOptionsPlugin({ minimize: true, debug: false })),

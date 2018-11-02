@@ -74,8 +74,8 @@ export class ConfirmModal extends PureComponent {
           </Form>}
         </Modal.Content>
         <Modal.Actions>
-          <Button secondary loading={loading} disabled={loading} content={cancelText || 'Cancelar'} onClick={this.handleActionClick.bind(null, 'cancel')} />
-          <Button primary loading={loading} disabled={loading} content={acceptText || 'Aceptar'} onClick={this.handleActionClick.bind(null, 'accept')} />
+          <Button secondary loading={loading} disabled={loading} content={cancelText || 'Cancel'} onClick={this.handleActionClick.bind(null, 'cancel')} />
+          <Button primary loading={loading} disabled={loading} content={acceptText || 'Accept'} onClick={this.handleActionClick.bind(null, 'accept')} />
         </Modal.Actions>
       </Modal>
     );
