@@ -56,8 +56,10 @@ export class Home extends PureComponent {
     const { capturing, toggleCapture, fontSize, changeFontSize } = this.props;
     const { settingsVisible, iconsVisible } = this.state;
 
+
+
     return (
-      <div className='min-vh-100 w-100' onMouseMove={this.showIconsForAMoment} >
+      <div className='w-100 flex justify-center items-center' onMouseMove={this.showIconsForAMoment} >
         <Transition duration={600} animation='fly right' visible={iconsVisible}>
           <div className='absolute top-1 left-1' >
             <Icon color='grey' link name={capturing ? 'pause' : 'play'} size='large' onClick={toggleCapture} />
@@ -66,6 +68,8 @@ export class Home extends PureComponent {
           </div>
         </Transition>
         { settingsVisible && <SettingsModal onCancel={this.hideSettings} /> }
+
+        <h1 className='tc black' style={{ fontSize: fontSize * 2 + 50 }} >Hello World Hello World Hello World Hello World 2</h1>
       </div>
     );
   }

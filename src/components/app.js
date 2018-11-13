@@ -26,7 +26,7 @@ export class App extends PureComponent {
     const { modals } = this.props;
 
     return (
-      <div className='min-h-100 bg-near-white' >
+      <div className='bg-near-white flex w-100' >
         <Helmet titleTemplate={'%s | S2T'} defaultTitle='S2T' >
           <html lang='es' />
           <meta charset='utf-8' />
