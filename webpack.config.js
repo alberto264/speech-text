@@ -57,6 +57,7 @@ module.exports = {
     rules: [{
       test: /\.js$/,
       include: [path.resolve(__dirname, './src')],
+      exclude: [path.resolve(__dirname, './src/lib')],
       use: [{ loader: 'babel-loader' }]
     }, {
       test: /\.(css|less)$/,

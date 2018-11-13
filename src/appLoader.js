@@ -1,4 +1,5 @@
 import 'theme/theme.less';
+import 'lib/microsoft.cognitiveservices.speech.sdk.bundle';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
