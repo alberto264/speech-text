@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet/es/Helmet';
@@ -18,35 +19,38 @@ const settingsSchema = {
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ saveSettings }, dispatch);
+const mapStateToProps = (state) => ({ settings: state.settings });
 
-@connect(undefined, mapDispatchToProps)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export class SettingsModal extends PureComponent {
 
   static propTypes = {
     onCancel: PropTypes.func.isRequired,
-    saveSettings: PropTypes.func.isRequired
+    saveSettings: PropTypes.func.isRequired,
+    settings: PropTypes.object,
   }
 
   onSubmit = createAsyncSubmit(this.props.saveSettings, this.props.onCancel);
 
   render() {
-    const { onCancel } = this.props;
+    const { onCancel, settings } = this.props;
 
     return (
-      <Fieldset useFormTag={false} schema={settingsSchema} source={settingsTemplate} onSubmit={this.onSubmit}>
+      <Fieldset useFormTag={false} schema={settingsSchema} source={_.isEmpty(settings) ? settingsTemplate : settings} onSubmit={this.onSubmit} >
         {({ key, region }, { loading, submitForm }) => (
           <Modal size='tiny' onClose={onCancel} open closeOnDimmerClick={false} closeIcon={false} >
-            <Helmet title='Speech settings' />
+            <Helmet title='Settings' />
             <Modal.Header content='Settings' />
             <Modal.Content as={Form} >
               <Form.Field error={key.errored} required >
-                <label>Key</label>
+                <label>Azure Key</label>
                 <Popup message={key.message} enabled={key.errored} >
                   <Input value={key.value || ''} onChange={key.onChange} autoComplete='off' />
                 </Popup>
               </Form.Field>
               <Form.Field error={region.errored} required >
-                <label>Region</label>
+                <label>Azure Region</label>
                 <Popup message={region.message} enabled={region.errored} >
                   <Input value={region.value || ''} onChange={region.onChange} autoComplete='off' />
                 </Popup>

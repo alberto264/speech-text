@@ -11,9 +11,7 @@ import { NotFound, ErrorBoundary } from './common';
 import { Home } from './home';
 import { ModalController } from 'controls/modals';
 
-const mapStateToProps = (state) => ({
-  modals: state.modals,
-});
+const mapStateToProps = (state) => ({ modals: state.modals });
 
 @hot(module)
 @connect(mapStateToProps)
@@ -29,7 +27,7 @@ export class App extends PureComponent {
 
     return (
       <div className='min-h-100 bg-near-white' >
-        <Helmet titleTemplate={'%s | Speech'} defaultTitle='Speech' >
+        <Helmet titleTemplate={'%s | S2T'} defaultTitle='S2T' >
           <html lang='es' />
           <meta charset='utf-8' />
           <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />

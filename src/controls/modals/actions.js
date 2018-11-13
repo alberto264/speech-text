@@ -28,7 +28,7 @@ export const showModal = (options) => (dispatch) => new Promise((res, rej) => {
   dispatch({ type: 'SHOW_MODAL', id: modalId, onClose, options });
 });
 
-export const showSuccess = ({ content, header = 'Operación realizada', size = 'tiny' }) => showModal({
+export const showSuccess = ({ content, header = 'Operation performed', size = 'tiny' }) => showModal({
   body: (
     <>
       <Header icon='checkmark' content={header} />
@@ -41,7 +41,7 @@ export const showSuccess = ({ content, header = 'Operación realizada', size = '
   actions: { accept: <Button positive icon='checkmark' content='Aceptar' /> }
 });
 
-export const showError = ({ content, header = 'Operación fallida', size = 'tiny' }) => showModal({
+export const showError = ({ content, header = 'Failed operation', size = 'tiny' }) => showModal({
   body: (
     <>
       <Header icon='close' content={header} />
@@ -51,10 +51,10 @@ export const showError = ({ content, header = 'Operación fallida', size = 'tiny
     </>
   ),
   size,
-  actions: { accept: <Button negative content='Aceptar' /> }
+  actions: { accept: <Button negative content='Okay' /> }
 });
 
-export const showWarning = ({ content, header = 'Operación realizada con algunos problemas', size = 'tiny' }) => showModal({
+export const showWarning = ({ content, header = 'Operation performed with some warnings', size = 'tiny' }) => showModal({
   body: (
     <>
       <Header icon='exclamation' content={header} />
@@ -64,11 +64,11 @@ export const showWarning = ({ content, header = 'Operación realizada con alguno
     </>
   ),
   size,
-  actions: { accept: <Button color='yellow' content='Aceptar' /> }
+  actions: { accept: <Button color='yellow' content='Okay' /> }
 });
 
 
-export const showConfirm = ({ onAccept, onCancel, cancelText, acceptText, content, options, header = 'Confirme operación', size = 'tiny' }) => showModal({
+export const showConfirm = ({ onAccept, onCancel, cancelText, acceptText, content, options, header = 'Confirm operation', size = 'tiny' }) => showModal({
   custom: ConfirmModal,
   onAccept,
   onCancel,

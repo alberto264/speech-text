@@ -5,3 +5,4 @@ export { utils };
 
 export * from './fieldset';
 export * from './popup';
+export * from './range';
