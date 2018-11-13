@@ -56,8 +56,6 @@ export class Home extends PureComponent {
     const { capturing, toggleCapture, fontSize, changeFontSize } = this.props;
     const { settingsVisible, iconsVisible } = this.state;
 
-
-
     return (
       <div className='w-100 flex justify-center items-center' onMouseMove={this.showIconsForAMoment} >
         <Transition duration={600} animation='fly right' visible={iconsVisible}>

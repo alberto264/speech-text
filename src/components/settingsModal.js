@@ -12,10 +12,11 @@ import { createAsyncSubmit } from 'utils/helpers';
 import { saveSettings } from 'actions';
 
 
-const settingsTemplate = { key: '', region: '' };
+const settingsTemplate = { key: '', region: '', language: '' };
 const settingsSchema = {
   key: Joi.string().trim().required().max(50).label('Key'),
   region: Joi.string().trim().required().max(50).label('Region'),
+  language: Joi.string().required().max(10).label('Language')
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ saveSettings }, dispatch);
@@ -38,7 +39,7 @@ export class SettingsModal extends PureComponent {
 
     return (
       <Fieldset useFormTag={false} schema={settingsSchema} source={_.isEmpty(settings) ? settingsTemplate : settings} onSubmit={this.onSubmit} >
-        {({ key, region }, { loading, submitForm }) => (
+        {({ key, region, language }, { loading, submitForm }) => (
           <Modal size='tiny' onClose={onCancel} open closeOnDimmerClick={false} closeIcon={false} >
             <Helmet title='Settings' />
             <Modal.Header content='Settings' />
@@ -53,6 +54,12 @@ export class SettingsModal extends PureComponent {
                 <label>Azure Region</label>
                 <Popup message={region.message} enabled={region.errored} >
                   <Input value={region.value || ''} onChange={region.onChange} autoComplete='off' />
+                </Popup>
+              </Form.Field>
+              <Form.Field error={language.errored} required >
+                <label>Language</label>
+                <Popup message={language.message} enabled={language.errored} >
+                  <Input value={language.value || ''} onChange={language.onChange} autoComplete='on' />
                 </Popup>
               </Form.Field>
             </Modal.Content>
