@@ -3,6 +3,7 @@ import { handleError } from 'utils/actions';
 export const initialize = () => handleError(async(dispatch, getState, { api }) => {
 
   const settings = await localStorage.getItem('settings');
+
   if (settings)
     dispatch({ type: 'SET_SETTINGS', settings: JSON.parse(settings) });
 
@@ -20,7 +21,24 @@ export const saveSettings = (newSettings) => handleError(async (dispatch, getSta
   return true;
 }, 'An error ocurred saving the settings');
 
-export const toggleCapture = () => handleError((dispatch, getState) => {
-  dispatch({ type: 'SET_CAPTURING', capturing: !getState().capturing });
+export const toggleCapture = () => handleError(async (dispatch, getState, { api }) => {
+  const { settings, capturing } = getState();
+  const { key, language, region } = settings;
+  const newCapturing = !capturing;
+
+  dispatch({ type: 'SET_CAPTURING', capturing: newCapturing });
+
+  try {
+
+    if (newCapturing)
+      await api.startContinuousRecognition({ key, region, language });
+    else
+      await api.stopContinuousRecognition();
+
+  } catch (error) {
+    dispatch({ type: 'SET_CAPTURING', capturing: !newCapturing });
+    throw error;
+  }
+
   return true;
 }, 'An error ocurred while toggling the capture');
