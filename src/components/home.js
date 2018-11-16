@@ -62,7 +62,6 @@ export class Home extends PureComponent {
     if (oldLength !== newLength) {
       const bottomPosition = document.body.scrollHeight - document.body.scrollTop;
       const difference = bottomPosition - document.body.clientHeight;
-      console.log(difference);
       return { needsScrolling: difference > 0 };
     }
     return { needsScrolling: false };
